@@ -76,14 +76,14 @@ void placer(char mot[N], char grille[N][N]){
 	int x,y,direct;
 	verifier(grille,mot,&direct,&x,&y);
 	switch(direct)
-		{	case 1: horizontaleD(grille,mot, x,y); break;
-			case 2: horizontaleG(grille,mot, x, y); break;
-			case 3: verticaleH(grille, mot,  x,  y); break;
-			case 4: verticaleB(grille, mot, x, y); break;
-			case 5: diagonaleHG(grille, mot, x, y); break;
-			case 6: diagonaleBD(grille, mot, x, y); break;
-			case 7: diagonaleHD(grille, mot, x, y); break;
-			case 8:	diagonaleBG(grille, mot, x, y);break;
+		{	case 1: horizontaleD(grille,mot, x,y); break; //placement en horizontal droit
+			case 2: horizontaleG(grille,mot, x, y); break; //placement en horizontal gauche
+			case 3: verticaleH(grille, mot,  x,  y); break; //placement en vertical haut
+			case 4: verticaleB(grille, mot, x, y); break; //placement en vertical bas
+			case 5: diagonaleHG(grille, mot, x, y); break; //placement en diagonale haut gauche
+			case 6: diagonaleBD(grille, mot, x, y); break; //placement en diagonal bas droit
+			case 7: diagonaleHD(grille, mot, x, y); break; //placement en diagonal haut droit
+			case 8:	diagonaleBG(grille, mot, x, y);break; //placement en diagonal bas gauche
 			default: printf("Erreur: votre choix doit �tre compris entre 1 et 8\n");
 		}
 }
