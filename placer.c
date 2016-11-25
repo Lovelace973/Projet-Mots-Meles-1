@@ -71,8 +71,8 @@ void verifier(char grille[N][N],char mot[N],int *Direct,int *xcoord,int *ycoord)
 		}
 	}
 }
+//Fonction qui prend la valeur retourner la fonction verifier afin de definir de quelle façon le mot peut être placé dans la grille//
 void placer(char mot[N], char grille[N][N]){
-	;
 	int x,y,direct;
 	verifier(grille,mot,&direct,&x,&y);
 	switch(direct)
