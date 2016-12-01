@@ -121,28 +121,28 @@ void verifier(char grille[N][N],char mot[N], int *direct, int *xcoord, int *ycoo
 	for(i=0; i<N+1 ; i++){
 		for(j=0; j<N+1; j++){
 			
-				for(k=j; k<leng ; k++){
-					if(grille[i][k] != ' ' && grille[i][k] != mot[cpt]){
-						verif++;
-						cpt++;
-						if(verif==leng){
-							*direct=1;
-							*ycoord=i;
-							*xcoord=j;
-						}
+			for(k=j; k<leng ; k++){
+				if(grille[i][k] != ' ' && grille[i][k] != mot[cpt]){
+					verif++;
+					cpt++;
+					if(verif==leng){
+						*direct=1;
+						*ycoord=i;
+						*xcoord=j;
 					}
 				}
-				for(k=j; k<leng ; k++){
-					if(grille[i][k] != ' ' && grille[i][k] != mot[cpt]){
-						verif++;
-						cpt++;
-						if(verif==leng){
-							*direct=4;
-							*ycoord=i;
-							*xcoord=j;
-						}
+			}
+			for(k=i; k<leng ; k++){
+				if(grille[i][k] != ' ' && grille[i][k] != mot[cpt]){
+					verif++;
+					cpt++;
+					if(verif==leng){
+						*direct=4;
+						*ycoord=i;
+						*xcoord=j;
 					}
-				}
+				}	
+			}
 		}
 	}
 }
