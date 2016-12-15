@@ -19,7 +19,7 @@ void completer_grille(char grille[N][N]){
 		for(j=0; j<N ; j++){
 			if(grille[i][j] == ' '){
 				int lettre = '@'+uHasard(26);
-				grille[i][j] = lettre;	
+				grille[i][j] = '.';	
 			}
 		}
 	}
@@ -41,17 +41,23 @@ void afficher(char grille[N][N]){
 void horizontaleD(char grille[N][N], char mot[N], int x, int y){
 	int i;
 	for(i=0; i<nChaineLg(mot); i++){
+		if(i<N){
 		grille[x][y] = mot[i];
 		y++;
+		}
+		
 	}
 }
 
 //Permet d'insérer un mot à l'horizontale vers la gauche; nécessite le nom de la grille, le mot à insérer, et les coordonnées de la premiere lettre//
 void horizontaleG(char grille[N][N], char mot[N], int x, int y){
 	int i;
-	for(i=0; i<nChaineLg(mot); i++){
+	for(i=N; i<nChaineLg(mot); i--){
+		if(i<N-1){
 		grille[x][y] = mot[i];
-		y--;
+		y--;	
+		}
+		
 	}
 }
 
@@ -59,8 +65,11 @@ void horizontaleG(char grille[N][N], char mot[N], int x, int y){
 void verticaleB(char grille[N][N], char mot[N], int x, int y){
 	int i;
 	for(i=0;i<nChaineLg(mot); i++){
+		if(i<N){
 		grille[x][y] = mot[i];
-		x++;
+		x++;	
+		}
+		
 	}
 }
 
@@ -68,17 +77,23 @@ void verticaleB(char grille[N][N], char mot[N], int x, int y){
 void verticaleH(char grille[N][N], char mot[N], int x, int y){
 	int i;
 	for(i=0;i<nChaineLg(mot); i++){
+		if(i<N){
 		grille[x][y] = mot[i];
-		x--;
+		x--;	
+		}
+		
 	}
 }
 //Permet d'insérer un mot en diagonale vers le bas à droite; nécessite le nom de la grille, le mot à insérer, et les coordonnées de la premiere lettre//
 void diagonaleBD(char grille[N][N], char mot[N], int x, int y){
 	int i;
 	for(i=0;i<nChaineLg(mot); i++){
-		grille[x][y] = mot[i];
+		if(i<N){
+			grille[x][y] = mot[i];
 		x++;
 		y++;
+		}
+		
 	}
 }
 
@@ -86,9 +101,12 @@ void diagonaleBD(char grille[N][N], char mot[N], int x, int y){
 void diagonaleBG(char grille[N][N], char mot[N], int x, int y){
 	int i;
 	for(i=0;i<nChaineLg(mot); i++){
+		if(i<N){
 		grille[x][y] = mot[i];
 		x++;
-		y--;
+		y--;	
+		}
+		
 	}
 }
 
@@ -96,9 +114,12 @@ void diagonaleBG(char grille[N][N], char mot[N], int x, int y){
 void diagonaleHD(char grille[N][N], char mot[N], int x, int y){
 	int i;
 	for(i=0;i<nChaineLg(mot); i++){
+		if(i<N){
 		grille[x][y] = mot[i];
 		x--;
-		y++;
+		y++;	
+		}
+		
 	}
 }
 
@@ -106,9 +127,12 @@ void diagonaleHD(char grille[N][N], char mot[N], int x, int y){
 void diagonaleHG(char grille[N][N],char mot[N],int x,int y){
 	int i;
 	for(i=0;i<nChaineLg(mot); i++){
+		if(i<N){
 		grille[x][y] = mot[i];
 		x--;
-		y--;
+		y--;	
+		}
+		
 	}
 }
 
@@ -116,32 +140,21 @@ void diagonaleHG(char grille[N][N],char mot[N],int x,int y){
 void verifier(char grille[N][N],char mot[N], int *direct, int *xcoord, int *ycoord){
 	int cpt = 0;
 	int verif = 0;
-	int i,j,k,l;
-	int leng = nChaineLg(mot);
-	for(i=0; i<N+1 ; i++){
-		for(j=0; j<N+1; j++){
-			
+	int i,j,k;
+	int leng = nChaineLg(mot); //longueur du mot
+	printf("%i ",leng);
+	for(i=0; i<=N ; i++){
+		for(j=0; j<N; j++){
 			for(k=j; k<leng ; k++){
-				if(grille[i][k] != ' ' && grille[i][k] != mot[cpt]){
-					verif++;
-					cpt++;
-					if(verif==leng){
-						*direct=1;
-						*ycoord=i;
-						*xcoord=j;
+					if(grille[i][j] != ' ' && grille[i][+k] != mot[cpt]){
+						
+						if(leng>5){
+							*direct=uHasard(4);
+							*ycoord=i;
+							*xcoord=j;
+							cpt++;
+						}
 					}
-				}
-			}
-			for(k=i; k<leng ; k++){
-				if(grille[i][k] != ' ' && grille[i][k] != mot[cpt]){
-					verif++;
-					cpt++;
-					if(verif==leng){
-						*direct=4;
-						*ycoord=i;
-						*xcoord=j;
-					}
-				}	
 			}
 		}
 	}
@@ -152,9 +165,9 @@ void placer(char mot[N], char grille[N][N]){
 	int x,y,direct;
 	verifier(grille,mot,&direct,&x,&y);
 	switch(direct)
-		{	case 1: horizontaleD(grille,mot, x,y); break;
+		{	case 1: horizontaleD(grille,mot, x, y); break;
 			case 2: horizontaleG(grille,mot, x, y); break;
-			case 3: verticaleH(grille, mot,  x,  y); break;
+			case 3: verticaleH(grille, mot,  x, y); break;
 			case 4: verticaleB(grille, mot, x, y); break;
 			case 5: diagonaleHG(grille, mot, x, y); break;
 			case 6: diagonaleBD(grille, mot, x, y); break;
@@ -192,9 +205,10 @@ void jouer(int theme){
 			do{ //Parcours le fichier//
 				for(i=0; i<10; i++){	//Permet de mettre dix mot par ligne pour la lisibilite//
 					if(feof(fichier) == 0){
-						fscanf(fichier, "%s", mot);	//Selectionne un mot dans la liste//
+						fscanf(fichier, "%s", mot);
+						placer(mot, grille);	//Selectionne un mot dans la liste//
 						printf("%s  ", mot);		//Affiche le mot dans la liste de mot a trouver pour le joueur//
-						placer(mot, grille);		//Place le mot dans la grille//
+								//Place le mot dans la grille//
 					}
 				}
 				printf("\n");	
